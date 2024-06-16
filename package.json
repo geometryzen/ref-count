@@ -1,0 +1,98 @@
+{
+    "name": "@geometryzen/my-lib",
+    "version": "0.9.21",
+    "description": "My TypeScript Library Template",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "system": "./dist/system/index.min.js",
+            "import": "./dist/esm/index.min.js",
+            "default": "./dist/commonjs/index.js"
+        }
+    },
+    "browser": "./dist/umd/index.js",
+    "main": "./dist/commonjs/index.js",
+    "module": "./dist/esm/index.min.js",
+    "type": "module",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist/commonjs/index.js",
+        "dist/commonjs/index.js.map",
+        "dist/esm/index.js",
+        "dist/esm/index.js.map",
+        "dist/esm/index.min.js",
+        "dist/esm/index.min.js.map",
+        "dist/index.d.ts",
+        "dist/system/index.js",
+        "dist/system/index.js.map",
+        "dist/system/index.min.js",
+        "dist/system/index.min.js.map",
+        "dist/umd/index.js",
+        "dist/umd/index.js.map"
+    ],
+    "keywords": [
+        "my",
+        "lib"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "npm run clean && rollup --config rollup.config.mts --configPlugin @rollup/plugin-typescript",
+        "check": "npx package-check",
+        "clean": "rm -rf coverage && rm -rf dist && rm -rf docs && rm -rf es2015 && rm -rf system && rm -rf types && rm -rf build",
+        "coverage": "npm run test -- --coverage",
+        "dev": "rollup --config rollup.config.mts --configPlugin @rollup/plugin-typescript -w",
+        "docs": "npm run docs:typedoc && open-cli docs/index.html",
+        "docs:typedoc": "rm -rf docs && typedoc --options typedoc.json",
+        "format:check": "prettier --check '**/*.{js,ts,tsx,css,yml,json}'",
+        "format:write": "prettier --write '**/*.{js,ts,tsx,css,yml,json}'",
+        "lint": "eslint .",
+        "pages": "npm run docs:typedoc && gh-pages -d docs",
+        "pretest": "npm run build",
+        "prepublishOnly": "npm run check && npm run build && npm run test && npm run lint && npm run pages",
+        "release": "release-it",
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/geometryzen/my-lib.git"
+    },
+    "author": {
+        "name": "David Geo Holmes",
+        "email": "david.geo.holmes@gmail.com"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/geometryzen/my-lib/issues"
+    },
+    "homepage": "https://github.com/geometryzen/my-lib#readme",
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^25.0.8",
+        "@rollup/plugin-node-resolve": "^15.2.3",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@skypack/package-check": "^0.2.2",
+        "@types/jest": "^29.5.12",
+        "@types/rollup-plugin-peer-deps-external": "^2.2.5",
+        "@typescript-eslint/eslint-plugin": "^7.12.0",
+        "@typescript-eslint/parser": "^7.12.0",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "gh-pages": "^6.1.1",
+        "jest": "^29.7.0",
+        "open-cli": "^8.0.0",
+        "prettier": "^3.3.0",
+        "release-it": "^17.3.0",
+        "rollup": "^4.18.0",
+        "rollup-plugin-dts": "^6.1.1",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "ts-jest": "^29.1.4",
+        "ts-jest-resolver": "^2.0.1",
+        "ts-node": "^10.9.2",
+        "tslib": "^2.6.2",
+        "typedoc": "^0.25.13",
+        "typescript": "^5.4.5",
+        "typescript-eslint": "^7.12.0"
+    }
+}
