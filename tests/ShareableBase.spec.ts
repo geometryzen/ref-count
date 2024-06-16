@@ -57,8 +57,7 @@ describe("ShareableBase", function () {
             const foo = new Recyclable();
             expect(foo.isCleanedUp).toBe(false);
             expect(foo.isZombie()).toBe(false);
-            const refCount = foo.release();
-            expect(refCount).toBe(0);
+            foo.release();
             expect(foo.isCleanedUp).toBe(true);
             expect(foo.isZombie()).toBe(true);
             refCommand("stop");

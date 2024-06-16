@@ -31,11 +31,11 @@ export class ShareableBase implements Shareable {
     /**
      *
      */
-    private $refCount: number;
+    #refCount: number;
     /**
      * The unique identifier used for reference count monitoring.
      */
-    protected readonly $uuid = `${Math.random()}`;
+    readonly #uuid = `${Math.random()}`;
     /**
      * @param $moniker A human-readable name used for logging.
      * @param initialRefCount defaults to 1.
@@ -44,9 +44,9 @@ export class ShareableBase implements Shareable {
         protected readonly $moniker = "ShareableBase",
         initialRefCount = 1
     ) {
-        this.$refCount = initialRefCount;
-        refChange(this.$uuid, this.$moniker, initialRefCount);
-        refChange(this.$uuid, this.$moniker, +1);
+        this.#refCount = initialRefCount;
+        refChange(this.#uuid, this.$moniker, initialRefCount);
+        refChange(this.#uuid, this.$moniker, +1);
     }
 
     /**
@@ -57,8 +57,8 @@ export class ShareableBase implements Shareable {
             throw new Error(`'protected resurrector(): void' method should be implemented by '${this.$moniker}'.`);
         }
         // TODO: Is this correct now that the initial reference count may not be 1?
-        this.$refCount = 1;
-        refChange(this.$uuid, this.$moniker, +1);
+        this.#refCount = 1;
+        refChange(this.#uuid, this.$moniker, +1);
     }
 
     /**
@@ -71,11 +71,9 @@ export class ShareableBase implements Shareable {
      * <p>
      * <em>Not implementing this method in a derived class risks leaking resources allocated by the derived class.</em>
      * </p>
-     *
-     * @param levelUp A number that should be incremented for each destructor call.
      */
     protected destructor(): void {
-        refChange(this.$uuid, this.$moniker, -1);
+        refChange(this.#uuid, this.$moniker, -1);
     }
 
     /**
@@ -83,47 +81,30 @@ export class ShareableBase implements Shareable {
      * In some cases it may be possible to recycle a zombie.
      */
     public isZombie(): boolean {
-        return typeof this.$refCount === "undefined";
+        return typeof this.#refCount === "undefined";
     }
 
-    /**
-     * <p>
-     * Notifies this instance that something is referencing it.
-     * </p>
-     *
-     * @returns The new value of the reference count.
-     */
-    public addRef(): number {
+    public addRef(): void {
         if (this.isZombie()) {
             this.resurrector(true);
-            return this.$refCount;
         } else {
-            this.$refCount++;
-            refChange(this.$uuid, this.$moniker, +1);
-            return this.$refCount;
+            this.#refCount++;
+            refChange(this.#uuid, this.$moniker, +1);
         }
     }
 
-    /**
-     * <p>
-     * Notifies this instance that something is dereferencing it.
-     * </p>
-     *
-     * @returns The new value of the reference count.
-     */
-    public release(): number {
-        this.$refCount--;
-        refChange(this.$uuid, this.$moniker, -1);
-        const refCount = this.$refCount;
+    public release(): void {
+        this.#refCount--;
+        refChange(this.#uuid, this.$moniker, -1);
+        const refCount = this.#refCount;
         if (refCount === 0) {
             // The following will call the most derived class first, if such a destructor exists.
             this.destructor();
             // refCount is used to indicate zombie status so let that go to undefined.
-            this.$refCount = void 0;
+            this.#refCount = void 0;
         }
-        return refCount;
     }
     protected get uuid(): string {
-        return this.$uuid;
+        return this.#uuid;
     }
 }

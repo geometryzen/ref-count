@@ -3,11 +3,11 @@
  */
 export interface Shareable {
     /**
-     * @returns The reference count after it has been incremented.
+     * Increments the reference count. Upon construction, an object has a reference count of one.
      */
-    addRef(): number;
+    addRef(): void;
     /**
-     * @returns The reference count after it has been decremented.
+     * Decrements the reference count. When the count reaches zero, the object is destroyed.
      */
-    release(): number;
+    release(): void;
 }
