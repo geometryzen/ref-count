@@ -1,8 +1,6 @@
-/**
- * Constructs a personalized string that can be used to greet a person.
- * @param name The name of the person receiving the greeting.
- * @returns a greeting string containing the name of the person receiving the greeting.
- */
-export function greeting(name: string): string {
-    return `Hello, ${name}!`;
-}
+export { exchange } from "./exchange";
+export { refChange } from "./refChange";
+export { Shareable } from "./Shareable";
+export { ShareableArray } from "./ShareableArray";
+export { ShareableBase } from "./ShareableBase";
+export { StringShareableMap } from "./StringShareableMap";

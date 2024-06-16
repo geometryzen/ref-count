@@ -1,14 +1,11 @@
-# my-lib
+# ref-count
 
-My TypeScript Library Template
+Reference Counting Support in JavaScript and TypeScript
 
-[![version](https://img.shields.io/npm/v/@geometryzen/my-lib.svg)](https://www.npmjs.com/package/@geometryzen/my-lib) 
+[![version](https://img.shields.io/npm/v/@geometryzen/ref-count.svg)](https://www.npmjs.com/package/@geometryzen/ref-count) 
 
-[![npm downloads](https://img.shields.io/npm/dm/@geometryzen/my-lib.svg)](https://npm-stat.com/charts.html?package=@geometryzen/my-lib&from=2022-09-01)
+[![npm downloads](https://img.shields.io/npm/dm/@geometryzen/ref-count.svg)](https://npm-stat.com/charts.html?package=@geometryzen/ref-count&from=2022-09-01)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
-
-For a STEMCstudio example (click [here](https://www.stemcstudio.com/gists/cbfe438dfe3c91b6e81a4d4a8358545c) to try)
-
